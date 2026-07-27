@@ -146,3 +146,49 @@ alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+
+# ** BN personal aliases **
+
+# Custom Aliases
+
+# shorthand for git bare repo commands (bash config)
+alias config='/usr/bin/git --git-dir=$HOME/.bash-config --work-tree=$HOME'
+
+# Bash
+alias sourceb='source ~/.bashrc'
+
+# Git
+alias gap='git add . -p'
+alias gfom='git fetch origin master'
+alias griom='git rebase -i origin/master'
+alias grom='gfom && griom'
+# push current branch
+alias pushit='git push origin $(git rev-parse --abbrev-ref HEAD)'
+# force push current branch
+alias pushitf='git push origin $(git rev-parse --abbrev-ref HEAD) --force-with-lease'
+# commit with message
+alias gcm='git commit -m'
+
+# push and echo URL to GitHub comparison of current branch to master
+alias mpr='pushit && current_branch=$(git rev-parse --abbrev-ref HEAD) && repo_url=$(git config --get remote.origin.url | sed -e "s/git@github.com:/https:\/\/github.com\//g" -e "s/\.git$//g" ) && echo "Comparison URL: ${repo_url}/compare/master...${current_branch}"'
+alias mprf='pushitf && mpr'
+
+# open bashrc in cursor
+alias brc='cursor ~/.bashrc'
+alias ba='cursor ~/.bash_aliases'
+
+# Rails
+alias rs='rails server'
+alias rc='rails console'
+alias rdm='rails db:migrate'
+
+## Custom Variables
+
+export VISUAL="nano"
+
+alias occ='cursor ~/.config/opencode'
+alias cskills='cursor ~/.claude/skills'
+
+# Kill ports for main dev project
+alias killdev='for p in 5173 6969; do sudo fuser -k ${p}/tcp 2>/dev/null; done'
